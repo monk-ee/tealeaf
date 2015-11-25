@@ -24,4 +24,11 @@ A Modular CloudWatch Python Feeder
 #Build
 
     virtualenv venv -p /usr/local/Cellar/python/2.7.10_2/
-source venv/bin/activate
+    source venv/bin/activate
+    pip install -r requirements.txt
+    
+
+#Tested Systems
+
+- Mac to a certian extent for testing only
+- AWS Linux
