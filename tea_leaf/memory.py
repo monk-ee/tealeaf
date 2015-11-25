@@ -65,6 +65,10 @@ class Memory:
                     'Name': 'TeaLeafModule',
                     'Value': 'Memory'
                 },
+                {
+                    'Name': 'InstanceId',
+                    'Value': instance_id
+                },
             ],
             'Timestamp': self._timestamp,
             'Value': getattr(self._virtual_memory, 'total'),
@@ -77,8 +81,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    }
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'available'),
                 'Unit': 'Bytes'
             },
@@ -89,8 +96,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'used'),
                 'Unit': 'Bytes'
             },
@@ -101,8 +111,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'free'),
                 'Unit': 'Bytes'
             },
@@ -113,8 +126,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'active'),
                 'Unit': 'Bytes'
             },
@@ -124,9 +140,11 @@ class Memory:
                     {
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
+                    },                {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
                     },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'inactive'),
                 'Unit': 'Bytes'
             },
@@ -137,8 +155,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'wired'),
                 'Unit': 'Bytes'
             },
@@ -149,8 +170,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'percent'),
                 'Unit': 'Percent'
             },
@@ -160,9 +184,11 @@ class Memory:
                     {
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
+                    },                {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
                     },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'total'),
                 'Unit': 'Bytes'
             },
@@ -172,9 +198,11 @@ class Memory:
                     {
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
+                    },                {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
                     },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'used'),
                 'Unit': 'Bytes'
             },
@@ -184,9 +212,11 @@ class Memory:
                     {
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
+                    },                {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
                     },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'free'),
                 'Unit': 'Bytes'
             },
@@ -196,9 +226,11 @@ class Memory:
                     {
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
+                    },                {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
                     },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'percent'),
                 'Unit': 'Percent'
             },
@@ -208,9 +240,11 @@ class Memory:
                     {
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
+                    },                {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
                     },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'sin'),
                 'Unit': 'Bytes'
             },
@@ -220,9 +254,11 @@ class Memory:
                     {
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
+                    },                {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
                     },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'sout'),
                 'Unit': 'Bytes'
             }]
@@ -238,8 +274,11 @@ class Memory:
                     'Name': 'TeaLeafModule',
                     'Value': 'Memory'
                 },
+                {
+                    'Name': 'InstanceId',
+                    'Value': instance_id
+                },
             ],
-            'Timestamp': self._timestamp,
             'Value': getattr(self._virtual_memory, 'total'),
             'Unit': 'Bytes'
         },
@@ -250,8 +289,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'available'),
                 'Unit': 'Bytes'
             },
@@ -262,8 +304,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'used'),
                 'Unit': 'Bytes'
             },
@@ -274,8 +319,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'free'),
                 'Unit': 'Bytes'
             },
@@ -286,8 +334,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'active'),
                 'Unit': 'Bytes'
             },
@@ -298,8 +349,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'inactive'),
                 'Unit': 'Bytes'
             },
@@ -310,8 +364,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'buffers'),
                 'Unit': 'Bytes'
             },
@@ -322,8 +379,11 @@ class Memory:
                            'Name': 'TeaLeafModule',
                            'Value': 'Memory'
                        },
+                       {
+                           'Name': 'InstanceId',
+                           'Value': instance_id
+                       },
                    ],
-                   'Timestamp': self._timestamp,
                    'Value': getattr(self._virtual_memory, 'cached'),
                    'Unit': 'Bytes'
                },
@@ -334,8 +394,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._virtual_memory, 'percent'),
                 'Unit': 'Percent'
             },
@@ -346,8 +409,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'total'),
                 'Unit': 'Bytes'
             },
@@ -358,8 +424,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'used'),
                 'Unit': 'Bytes'
             },
@@ -370,8 +439,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'free'),
                 'Unit': 'Bytes'
             },
@@ -382,8 +454,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'percent'),
                 'Unit': 'Percent'
             },
@@ -394,8 +469,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'sin'),
                 'Unit': 'Bytes'
             },
@@ -406,8 +484,11 @@ class Memory:
                         'Name': 'TeaLeafModule',
                         'Value': 'Memory'
                     },
+                    {
+                        'Name': 'InstanceId',
+                        'Value': instance_id
+                    },
                 ],
-                'Timestamp': self._timestamp,
                 'Value': getattr(self._swap_memory, 'sout'),
                 'Unit': 'Bytes'
             }]
