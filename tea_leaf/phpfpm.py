@@ -42,21 +42,31 @@ class PHPFPM:
     _phpfpm = None
     _swap_memory = None
     _debug = False
+    _virtual = 0
+    _resident = 0
 
     def __init__(self):
         self._pids = self.pidof('php-fpm')
         self.calculate()
 
-
     def calculate(self):
+        self.memory()
         self._phpfpm = {
                            'total': len(self._pids),
-                            'percent': 50.0
+                            'virtual': self._virtual,
+                            'resident': self._resident
         }
 
     def memory(self):
-        p = psutil.Process(pid)
-        pinfo = p.as_dict(ad_value=ACCESS_DENIED)
+        for pid in self._pids:
+            try:
+                p = psutil.Process(int(pid))
+                pinfo = p.as_dict()
+                self._resident = self._resident + pinfo['memory_info'].rss
+                self._virtual = self._virtual + pinfo['memory_info'].vms
+            except (BaseException) as emsg:
+                pass
+
 
     def data(self, instance_id):
         if platform.system() == "Linux":
@@ -105,10 +115,11 @@ class PHPFPM:
                 ],
             },
             {
-                "Unit": 'Percent',
+                "Unit": 'Bytes',
                 "Array": self._phpfpm,
                 'Dimensions': [
-                    {'Memory_Pecentage_Used': 'percent'},
+                    {'Virtual_Memory_Used': 'virtual'},
+                    {'Resident_Memory_Used': 'resident'}
                 ],
             }
         ]
