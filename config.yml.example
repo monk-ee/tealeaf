@@ -1,0 +1,7 @@
+general:
+  region: "ap-southeast-2"
+  debug: True
+  logfile: 'tealeaf.log'
+  namespace_prefix: 'Tea_Leaf_'
+modules:
+ - Memory
