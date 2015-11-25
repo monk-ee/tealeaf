@@ -51,11 +51,11 @@ class Memory:
 
     def data(self, instance_id):
         if platform.system() == "Linux":
-            self.linux_data(instance_id)
+            return self.linux_data(instance_id)
         elif platform.system() == 'Darwin':
-            self.mac_data(instance_id)
+            return self.mac_data(instance_id)
         else:
-            return
+            return None
 
     def mac_data(self, instance_id):
         data = [{
