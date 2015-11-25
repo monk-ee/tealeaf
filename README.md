@@ -68,4 +68,6 @@ Add the IAM role to your instance.
 
 Add cron job
 
-    */5 * * * * /opt/tealeaf/cron.sh
+    */5 * * * * /opt/tealeaf/cron.sh  /dev/null 2>&1
+    
+    Don't forget to push standard in and out to null - otherwise your mailbox might fill

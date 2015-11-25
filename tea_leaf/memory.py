@@ -158,7 +158,7 @@ class Memory:
             for datapoints in unit['Dimensions']:
                 for point in datapoints:
                     data.append({
-                        'MetricName': instance_id + "_" + point,
+                        'MetricName': point,
                         'Dimensions': [
                             {
                                 'Name': 'TeaLeafModule',
