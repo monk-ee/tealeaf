@@ -3,8 +3,15 @@
 A Modular CloudWatch Python Feeder
 
 #Modules
-
+Add only the modules you want in the config.yml file.
 Only memory has been completed.
+
+Build your own modules based on your custom metrics see the examplemodule.py.
+
+
+#Namespace
+You can change the namespace prefix in the config.yml file
+
 
 #IAM Profile
 
@@ -37,6 +44,16 @@ You will need a policy like this:
 
 - Mac to a certian extent for testing only
 - AWS Linux
+
+#Config
+
+    general:
+      region: "ap-southeast-2"
+      debug: True
+      logfile: 'tealeaf.log'
+      namespace_prefix: 'Tea_Leaf_'
+    modules:
+     - Memory
 
 
 #Install
