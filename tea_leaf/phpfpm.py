@@ -113,11 +113,8 @@ class PHPFPM:
     def process_metrics(self, instance_id, metric):
         data = []
         for unit in metric:
-            print(unit)
             for datapoints in unit['Dimensions']:
-                print(unit)
                 for point in datapoints:
-                    print(point)
                     data.append({
                         'MetricName': instance_id + "_" + point,
                         'Dimensions': [
@@ -134,7 +131,6 @@ class PHPFPM:
                         'Value': unit['Array'][datapoints[point]],
                         'Unit': unit['Unit']
                     })
-            print(data)
         if self._debug:
             pprint(data)
         return data
