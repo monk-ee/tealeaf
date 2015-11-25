@@ -40,7 +40,7 @@ class Memory:
     _timestamp = time.strftime("%d/%m/%Y %H:%M:%S")
     _virtual_memory = None
     _swap_memory = None
-    _debug = False
+    _debug = True
 
     def __init__(self):
         self._virtual_memory = psutil.virtual_memory()
@@ -58,442 +58,124 @@ class Memory:
             return None
 
     def mac_data(self, instance_id):
-        data = [{
-            'MetricName': instance_id + '_Memory_Total',
-            'Dimensions': [
-                {
-                    'Name': 'TeaLeafModule',
-                    'Value': 'Memory'
-                },
-                {
-                    'Name': 'InstanceId',
-                    'Value': instance_id
-                },
-            ],
-            'Value': getattr(self._virtual_memory, 'total'),
-            'Unit': 'Bytes'
-        },
-            {
-                'MetricName': instance_id + '_Memory_Available',
-                'Dimensions': [
+        metric = self.set_mac_metric()
+        return self.process_metrics(instance_id, metric)
+
+    def linux_data(self, instance_id):
+        metric = self.set_linux_metric()
+        return self.process_metrics(instance_id, metric)
+
+    def set_mac_metric(self):
+        metric = [
                     {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
+                        "Unit":'Bytes',
+                        "Array": self._virtual_memory,
+                        'Dimensions': [
+                            {'Memory_Total': 'total'},
+                            {'Memory_Available': 'available'},
+                            {'Memory_Used': 'used'},
+                            {'Memory_Free': 'free'},
+                            {"Memory_Active": 'active'},
+                             {"Memory_Inactive": 'inactive'},
+                              {"Memory_Wired": 'wired'}
+                        ],
                     },
                     {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    }
+                        "Unit":'Percent',
+                        "Array": self._virtual_memory,
+                        'Dimensions': [
+                            {'Memory_Percentage_Used': 'percent'},
+                        ],
+                    },
+                    {
+                        "Unit":'Bytes',
+                        "Array": self._swap_memory,
+                        'Dimensions': [
+                            {'Swap_Total': 'total'},
+                            {'Swap_Used': 'used'},
+                            {'Swap_Free': 'free'},
+                            {'Swap_SIN': 'sin'},
+                            {"Swap_SOUT": 'sout'}
+                        ],
+                    },
+                    {
+                        "Unit":'Percent',
+                        "Array": self._swap_memory,
+                        'Dimensions': [
+                            {'Swap_Percentage_Used': 'percent'},
+                        ],
+                    },
+                ]
+        return metric
+
+    def set_linux_metric(self):
+        metric = [
+            {
+                "Unit":'Bytes',
+                "Array": self._virtual_memory,
+                'Dimensions': [
+                    {'Memory_Total': 'total'},
+                    {'Memory_Available': 'available'},
+                    {'Memory_Used': 'used'},
+                    {'Memory_Free': 'free'},
+                    {"Memory_Active": 'active'},
+                    {"Memory_Inactive": 'inactive'},
+                    {"Memory_Buffered": 'buffered'},
+                    {"Memory_Cached": 'cached'},
                 ],
-                'Value': getattr(self._virtual_memory, 'available'),
-                'Unit': 'Bytes'
             },
             {
-                'MetricName': instance_id + '_Memory_Used',
+                "Unit":'Percent',
+                "Array": self._virtual_memory,
                 'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
+                    {'Memory_Pecentage_Used': 'percent'},
                 ],
-                'Value': getattr(self._virtual_memory, 'used'),
-                'Unit': 'Bytes'
             },
             {
-                'MetricName': instance_id + '_Memory_Free',
+                "Unit":'Bytes',
+                "Array": self._swap_memory,
                 'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
+                    {'Swap_Total': 'total'},
+                    {'Swap_Used': 'used'},
+                    {'Swap_Free': 'free'},
+                    {'Swap_SIN': 'sin'},
+                    {"Swap_SOUT": 'sout'}
                 ],
-                'Value': getattr(self._virtual_memory, 'free'),
-                'Unit': 'Bytes'
             },
             {
-                'MetricName': instance_id + '_Memory_Active',
+                "Unit":'Percent',
+                "Array": self._swap_memory,
                 'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
+                    {'Swap_Percentage_Used': 'percent'},
                 ],
-                'Value': getattr(self._virtual_memory, 'active'),
-                'Unit': 'Bytes'
             },
-            {
-                'MetricName': instance_id + '_Memory_Inactive',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },                {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._virtual_memory, 'inactive'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Memory_Wired',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._virtual_memory, 'wired'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Memory_Percentage_Used',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._virtual_memory, 'percent'),
-                'Unit': 'Percent'
-            },
-            {
-                'MetricName': instance_id + '_Swap_Total',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },                {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'total'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Swap_Used',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },                {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'used'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Swap_Free',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },                {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'free'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Swap_Percentage_Used',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },                {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'percent'),
-                'Unit': 'Percent'
-            },
-            {
-                'MetricName': instance_id + '_Swap_SIN',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },                {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'sin'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Swap_SOUT',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },                {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'sout'),
-                'Unit': 'Bytes'
-            }]
+        ]
+        return metric
+
+    def process_metrics(self, instance_id, metric):
+        data = []
+        for unit in metric:
+            for datapoints in unit['Dimensions']:
+                for point in datapoints:
+                    data.append({
+                        'MetricName': instance_id + "_" + point,
+                        'Dimensions': [
+                            {
+                                'Name': 'TeaLeafModule',
+                                'Value': 'Memory'
+                            },
+                            {
+                                'Name': 'InstanceId',
+                                'Value': instance_id
+                            },
+                        ],
+                        'Value': getattr(unit['Array'], datapoints[point]),
+                        'Unit': unit['Unit']
+                        })
         if self._debug:
             pprint(data)
         return data
 
-    def linux_data(self, instance_id):
-        data = [{
-            'MetricName': instance_id + '_Memory_Total',
-            'Dimensions': [
-                {
-                    'Name': 'TeaLeafModule',
-                    'Value': 'Memory'
-                },
-                {
-                    'Name': 'InstanceId',
-                    'Value': instance_id
-                },
-            ],
-            'Value': getattr(self._virtual_memory, 'total'),
-            'Unit': 'Bytes'
-        },
-            {
-                'MetricName': instance_id + '_Memory_Available',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._virtual_memory, 'available'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Memory_Used',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._virtual_memory, 'used'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Memory_Free',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._virtual_memory, 'free'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Memory_Active',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._virtual_memory, 'active'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Memory_Inactive',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._virtual_memory, 'inactive'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Memory_Buffers',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._virtual_memory, 'buffers'),
-                'Unit': 'Bytes'
-            },
-            {
-                   'MetricName': instance_id + '_Memory_Cached',
-                   'Dimensions': [
-                       {
-                           'Name': 'TeaLeafModule',
-                           'Value': 'Memory'
-                       },
-                       {
-                           'Name': 'InstanceId',
-                           'Value': instance_id
-                       },
-                   ],
-                   'Value': getattr(self._virtual_memory, 'cached'),
-                   'Unit': 'Bytes'
-               },
-            {
-                'MetricName': instance_id + '_Memory_Percentage_Used',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._virtual_memory, 'percent'),
-                'Unit': 'Percent'
-            },
-            {
-                'MetricName': instance_id + '_Swap_Total',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'total'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Swap_Used',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'used'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Swap_Free',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'free'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Swap_Percentage_Used',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'percent'),
-                'Unit': 'Percent'
-            },
-            {
-                'MetricName': instance_id + '_Swap_SIN',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'sin'),
-                'Unit': 'Bytes'
-            },
-            {
-                'MetricName': instance_id + '_Swap_SOUT',
-                'Dimensions': [
-                    {
-                        'Name': 'TeaLeafModule',
-                        'Value': 'Memory'
-                    },
-                    {
-                        'Name': 'InstanceId',
-                        'Value': instance_id
-                    },
-                ],
-                'Value': getattr(self._swap_memory, 'sout'),
-                'Unit': 'Bytes'
-            }]
-        if self._debug:
-            pprint(data)
-        return data
 
 
 if __name__ == "__main__":
