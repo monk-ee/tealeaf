@@ -129,16 +129,16 @@ class TeaLeaf:
 
         return class_inst
 
-    def post_metric(self, module_name, data):
+    def post_metric(self, data, module_name):
         response = None
         try:
             response = self.cloudwatch.put_metric_data(
-                Namespace=self._config['general']['namespace_prefix'] + module_name,
+                Namespace=self._config['general']['namespace_prefix'] + str(module_name),
                 MetricData=data
             )
         except (BaseException) as emsg:
             if self._debug:
-                logging.warning(self._timestamp + ': Cannot post data - ' + str(emsg) + ' - ' + str(data))
+                logging.warning(self._timestamp + ': Cannot post data - ' + str(emsg))
 
         if self._debug:
-            logging.info(self._timestamp + ': Metric Post Response ' + str(module_name) + ' - ' + str(data) + ' - ' + str(response))
+            logging.info(self._timestamp + ': Metric Post Response ' + str(module_name) + ' - ' + str(response))

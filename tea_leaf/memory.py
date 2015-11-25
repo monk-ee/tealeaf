@@ -70,7 +70,6 @@ class Memory:
                     'Value': instance_id
                 },
             ],
-            'Timestamp': self._timestamp,
             'Value': getattr(self._virtual_memory, 'total'),
             'Unit': 'Bytes'
         },
