@@ -82,7 +82,6 @@ class TeaLeaf:
         except IOError as error:
             exit("Could not load config.yml: " + str(error))
         except:
-            raise
             exit("Unexpected error:", sys.exc_info()[0])
 
     def instance_id(self):
@@ -93,34 +92,37 @@ class TeaLeaf:
                 print(self._instance_id)
         except (BaseException) as emsg:
             if self._debug:
-                logging.warning(self._timestamp, ': Cannot determine instance id - ', emsg)
-            exit("Cannot determine instance id.")
+                logging.warning(self._timestamp + ': Cannot determine instance id - ' + str(emsg))
+                self._instance_id = 'i-xxxxxxxx'
+            else:
+                exit("Cannot determine instance id.")
 
 
     def connect(self):
         try:
-            self.cloudwatch = boto3.setup_default_session(region_name=self.config['general']['region'])
+            self.cloudwatch = boto3.setup_default_session(region_name=self._config['general']['region'])
             self.cloudwatch = boto3.client('cloudwatch')
         except (BaseException) as emsg:
             if self._debug:
-                logging.warning(self._timestamp, ': Cannot connect to Region for CloudWatch - ', emsg)
+                logging.warning(self._timestamp + ': Cannot connect to Region for CloudWatch - ' + str(emsg))
             exit("Cannot connect to Region for CloudWatch")
 
     def modules(self):
         for module in self._config['modules']:
             self._modules[module] = self.load_module(module)
-            self.post_metric(self._modules[module].data(self._instance_id))
+            self.post_metric(self._modules[module].data(self._instance_id), module)
         if self._debug:
             print(self._modules)
 
     def load_module(self, module_name):
         class_inst = None
+        python_module = None
         #@todo need to check for pyc here of course in case file is compiled
         try:
             python_module = imp.load_source(module_name, os.path.dirname(os.path.abspath(__file__)) + '/' + str.lower(module_name) + '.py')
         except (BaseException) as emsg:
             if self._debug:
-                logging.warning(self._timestamp, ': Cannot load module - ', emsg, module_name)
+                logging.warning(self._timestamp + ': Cannot load module - ' + str(emsg) + ' - ' + str(module_name))
 
         if hasattr(python_module, module_name):
             class_inst = getattr(python_module, module_name)()
@@ -136,6 +138,7 @@ class TeaLeaf:
             )
         except (BaseException) as emsg:
             if self._debug:
-                logging.warning(self._timestamp, ': Cannot post data - ', emsg, data)
+                logging.warning(self._timestamp + ': Cannot post data - ' + str(emsg) + ' - ' + str(data))
+
         if self._debug:
-            logging.info(self._timestamp, ': Metric Post responseResponse ', module_name, data, response)
+            logging.info(self._timestamp + ': Metric Post Response ' + str(module_name) + ' - ' + str(data) + ' - ' + str(response))

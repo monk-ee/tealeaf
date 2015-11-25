@@ -40,7 +40,7 @@ class Memory:
     _timestamp = time.strftime("%d/%m/%Y %H:%M:%S")
     _virtual_memory = None
     _swap_memory = None
-    _debug = True
+    _debug = False
 
     def __init__(self):
         self._virtual_memory = psutil.virtual_memory()
