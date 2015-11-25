@@ -5,6 +5,8 @@ A Modular CloudWatch Python Feeder
 
 #IAM Profile
 
+YOu will need a policy like this:
+
     {
     "Statement": [
     {
@@ -32,3 +34,11 @@ A Modular CloudWatch Python Feeder
 
 - Mac to a certian extent for testing only
 - AWS Linux
+
+
+# install
+unpack in /opt/tealeaf
+
+add cron job
+
+    */5 * * * * /opt/tealeaf/cron.py
