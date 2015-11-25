@@ -1,7 +1,9 @@
 # tealeaf
+
 A Modular CloudWatch Python Feeder
 
 #Modules
+
 Only memory has been completed.
 
 #IAM Profile
@@ -32,15 +34,21 @@ You will need a policy like this:
     
 
 #Tested Systems
+
 - Mac to a certian extent for testing only
 - AWS Linux
 
 
 #Install
+
 Unpack in /opt/tealeaf
+
 Copy config.yml.example to config.yml
+
 Update your region in the config.yml
+
 Add the IAM role to your instance.
+
 Add cron job
 
     */5 * * * * /opt/tealeaf/cron.sh
