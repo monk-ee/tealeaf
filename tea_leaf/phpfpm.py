@@ -41,7 +41,7 @@ class PHPFPM:
     _pids = None
     _phpfpm = None
     _swap_memory = None
-    _debug = True
+    _debug = False
 
     def __init__(self):
         self._pids = self.pidof('php-fpm')
@@ -51,8 +51,12 @@ class PHPFPM:
     def calculate(self):
         self._phpfpm = {
                            'total': len(self._pids),
-                            'percent': '50.0'
+                            'percent': 50.0
         }
+
+    def memory(self):
+        p = psutil.Process(pid)
+        pinfo = p.as_dict(ad_value=ACCESS_DENIED)
 
     def data(self, instance_id):
         if platform.system() == "Linux":
